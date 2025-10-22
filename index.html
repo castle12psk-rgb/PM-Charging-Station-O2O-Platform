@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PM Charging Station & O2O Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      @keyframes pulse-glow {
+        0%, 100% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 3px #64ffda);
+        }
+        50% {
+          transform: scale(1.05);
+          filter: drop-shadow(0 0 7px #64ffda);
+        }
+      }
+      @keyframes dash-flow {
+        to {
+          stroke-dashoffset: -100;
+        }
+      }
+      @keyframes bar-grow {
+        from {
+          transform: scaleY(0);
+        }
+        to {
+          transform: scaleY(1);
+        }
+      }
+      .animate-pulse-glow {
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+      .animate-dash-flow {
+        stroke-dasharray: 10 10;
+        animation: dash-flow 5s linear infinite;
+      }
+      .animate-bar-grow {
+        transform-origin: bottom;
+        animation: bar-grow 1s ease-out forwards;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              kr: ['Noto Sans KR', 'sans-serif'],
+            },
+            colors: {
+              'brand-deep-blue': '#0A192F',
+              'brand-slate': {
+                'lightest': '#ccd6f6',
+                'light': '#a8b2d1',
+                'DEFAULT': '#8892b0',
+                'dark': '#495670'
+              },
+              'brand-green': '#64ffda',
+              'brand-bg': '#020c1b',
+            },
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.3.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.26.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
