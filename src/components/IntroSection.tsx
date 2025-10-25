@@ -1,25 +1,12 @@
 import React from 'react';
 import { introContent } from '../constants';
 import { SectionID } from '../types';
-import { generateSpeech } from '../services/geminiService';
-import { useAudioPlayer } from '../hooks/useAudioPlayer';
-import { SoundWaveIcon } from './icons';
 
 interface IntroSectionProps {
   setActiveSection: (section: SectionID) => void;
 }
 
 export const IntroSection: React.FC<IntroSectionProps> = ({ setActiveSection }) => {
-  const { playAudio, isPlaying, isLoading } = useAudioPlayer();
-
-  const handlePlayNarration = async () => {
-    if (isLoading || isPlaying) return;
-
-    const base64Audio = await generateSpeech(introContent.narrationText);
-    if (base64Audio) {
-      playAudio(base64Audio);
-    }
-  };
 
   return (
     <section id="intro" className="relative min-h-[calc(100vh-6rem)] flex flex-col pt-10 pb-20">
@@ -40,29 +27,11 @@ export const IntroSection: React.FC<IntroSectionProps> = ({ setActiveSection }) 
           {introContent.subCopy}
         </p>
 
-        <div className="flex items-start gap-4 max-w-2xl mb-12">
-          <div className="flex-grow bg-brand-deep-blue/50 backdrop-blur-sm border border-brand-slate-dark/30 rounded-lg p-6">
-            <p className="text-brand-slate-lightest italic">
-              "{introContent.narrationText}"
-            </p>
-          </div>
-          <button
-            onClick={handlePlayNarration}
-            disabled={isLoading || isPlaying}
-            className="flex-shrink-0 mt-2 p-3 bg-brand-deep-blue/50 border border-brand-slate-dark/30 rounded-full text-brand-green hover:bg-brand-green/10 hover:border-brand-green/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-            aria-label="내레이션 듣기"
-          >
-            {isLoading ? (
-              <svg className="w-6 h-6 animate-spin text-brand-slate-light" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            ) : (
-              <SoundWaveIcon className={`w-6 h-6 transition-colors ${isPlaying ? 'text-brand-green animate-pulse-glow' : 'text-brand-slate-light'}`} />
-            )}
-          </button>
+        <div className="bg-brand-deep-blue/50 backdrop-blur-sm border border-brand-slate-dark/30 rounded-lg p-6 max-w-2xl mb-12">
+          <p className="text-brand-slate-lightest italic">
+            "{introContent.narrationText}"
+          </p>
         </div>
-
 
         <div className="flex flex-wrap gap-4">
           <button 
