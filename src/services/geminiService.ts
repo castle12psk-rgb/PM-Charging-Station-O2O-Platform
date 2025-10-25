@@ -1,17 +1,18 @@
-
 import { GoogleGenAI, Modality } from "@google/genai";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY = process.env.API_KEY;
+
+let ai: GoogleGenAI | null = null;
 
 if (!API_KEY) {
-  console.warn("VITE_API_KEY environment variable not set. AI features will be disabled.");
+  console.warn("API_KEY environment variable not set. AI features will be disabled.");
+} else {
+  ai = new GoogleGenAI({ apiKey: API_KEY });
 }
 
-const ai = new GoogleGenAI({ apiKey: API_KEY });
-
 export const generateSpeech = async (text: string): Promise<string | null> => {
-  if (!API_KEY) {
-    alert("Google AI API Key is not configured.");
+  if (!ai) {
+    alert("Google AI API 키가 설정되지 않아 AI 기능을 사용할 수 없습니다.");
     return null;
   }
   try {
@@ -35,6 +36,7 @@ export const generateSpeech = async (text: string): Promise<string | null> => {
     return null;
   } catch (error) {
     console.error("Error generating speech:", error);
+    alert("음성 생성 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     return null;
   }
 };
